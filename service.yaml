@@ -1,20 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp-Service
+  name: webapp-service
   labels:
-    type: webapp
+    type: webapp-service 
 spec:
-  selectors:
-    matchLabels:
+  selector:
       type: webapp
   type: NodePort
-  containers:
-    - name: webapp
-      image: richardchesterwood/k8s-fleetman-webapp-angular:release0
-      ports:
-        - port: 80
-          targetPort: 80
-          nodePort: 30001
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001
   
 
