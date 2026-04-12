@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: myrs 
+  name: my-deploy 
 spec:
+  minReadySeconds: 30
   replicas: 3
   selector:
     matchLabels:
@@ -17,5 +18,5 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: richardchesterwood/k8s-fleetman-webapp-angular:release0
+          image: richardchesterwood/k8s-fleetman-webapp-angular:release0-5
         
