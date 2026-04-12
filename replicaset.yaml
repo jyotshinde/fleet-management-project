@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myrs 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        type: my-webapp
+        version: "0-5"    
+  template:
+    metadata:
+      name: webapp
+      labels:
+        type: my-webapp
+        version: "0-5"
+    spec:
+      containers:
+        - name: webapp
+          image: richardchesterwood/k8s-fleetman-webapp-angular:release0-5
+        
