@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: position-simulator 
+spec:
+  #minReadySeconds: 10
+  replicas: 1
+  selector:
+    matchLabels:
+        type: position-simulator
+        version: "1"    
+  template:
+    metadata:
+      name: position-simulator
+      labels:
+        type: position-simulator
+        version: "1"
+    spec:
+      containers:
+        - name: position-simulator
+          image: richardchesterwood/k8s-fleetman-position-simulator:release1
+          env: 
+            - name: SPRING_PROFILES_ACTIVE
+              value: production-microservice
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queue-service
+  labels:
+    type: queue-service 
+spec:
+  selector:
+    type: queue
+  type: NodePort
+  ports:
+    - name: http
+      port: 8161
+      nodePort: 30010
+    - name: endpoint
+      port: 61616
+    
