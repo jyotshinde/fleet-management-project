@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-sql
+  labels:
+    type: my-sql
+    version: "0-5"
+spec:
+  containers:
+    - name: my-sql
+      image: mysql:latest
+      env: 
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        - name: MYSQL_DATABASE
+          value: fleetman
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  labels:
+    type: mysql-service 
+spec:
+  selector:
+    type: my-sql
+    version: "0-5"
+  ports:
+    - port: 3306
